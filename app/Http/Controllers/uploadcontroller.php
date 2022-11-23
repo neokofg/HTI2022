@@ -45,4 +45,21 @@ class uploadcontroller extends Controller
         DB::table('news')->insert($data);
         return back();
     }
+    protected function createTeam(Request $request){
+        $validateFields = $request->validate([
+            'name' => 'required|unique:teams',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'description' => 'required'
+        ]);
+        $name = $request->input('name');
+        $content = $request->input('description');
+        $userid = Auth::user()->id;
+        $file= $request->file('image');
+        $filename= date('YmdHi').$file->hashName();
+        $file-> move(public_path('images'), $filename);
+        $data = array('userids'=>$userid,'name' => $name, 'description' => $content,'image' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'));
+        DB::table('teams')->insert($data);
+        return back();
+    }
 }

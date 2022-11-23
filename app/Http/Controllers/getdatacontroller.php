@@ -21,6 +21,7 @@ class getdatacontroller extends Controller
         return view('hackathons', compact(['hackathons']));
     }
     protected function GetTeamsData(Request $request){
-        
+        $teams = DB::table('teams')->orderBy('created_at', 'DESC')->get();
+        return view('teams', compact(['teams']));
     }
 }

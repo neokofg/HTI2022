@@ -10,6 +10,7 @@
 <body>
     @if(Auth::check())
         Здравствуйте, {{Auth::user()->name}} {{Auth::user()->surname}}
+        <br>
         <a href="#">Личный кабинет</a>
         @if(Auth::user()->role == 1)
             <a href="{{route('admin')}}">Админ панель</a>
@@ -28,6 +29,7 @@
     </div>
     @endif
     <a href="{{route('hackathons')}}">Хакатоны</a>
+    <a href="{{route('teams')}}">Команды</a>
     <div>
         <h1>Новости:</h1>
         @foreach($news as $onenews)

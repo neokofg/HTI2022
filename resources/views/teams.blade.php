@@ -10,5 +10,14 @@
 <body>
 <a href="{{route('index')}}">Назад</a>
 <div>Команды</div>
+@foreach($teams as $team)
+    <div>
+    <img src="/images/{{$team->image}}" style="width:100px;height:100px">
+    <p>{{$team->name}}</p>
+    <p>{{Str::limit($team->description, 50, ' ...')}}</p>
+    </div>
+    <hr>
+@endforeach
+<a href="{{route('createteam')}}">Создать команду</a>
 </body>
 </html>
