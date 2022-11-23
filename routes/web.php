@@ -29,6 +29,10 @@ Route::name('hackathons')->group(function (){
     Route::view('/hackathons', 'hackathons');
     Route::get('/hackathons', [\App\Http\Controllers\getdatacontroller::class,'GetHackathonsData']);
 });
+Route::name('team')->group(function (){
+    Route::view('/team', 'team');
+    Route::get('/team', [\App\Http\Controllers\getdatacontroller::class,'GetTeamData'])->middleware('auth');
+});
 Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
 Route::view('/admin', 'admin')->name('admin');

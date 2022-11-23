@@ -9,16 +9,14 @@
 </head>
 <body>
 <a href="{{route('index')}}">Назад</a>
-<div>Команды</div>
-@foreach($teams as $team)
-    <div>
-    <img src="/images/{{$team->image}}" style="width:100px;height:100px">
-    <p>{{$team->name}}</p>
-    <p>{{Str::limit($team->description, 50, ' ...')}}</p>
-        <button>Подать заявку</button>
-    </div>
-    <hr>
+@foreach($team as $teams)
+    <h2>Команда</h2>
+    <img src="/images/{{$teams->image}}" style="width:100px;height:100px">
+    <p>{{$teams->name}}</p>
+    <p>{{$teams->description}}</p>
+    @if(Auth::user()->id == $teams->leaderid)
+        Заявки:
+    @endif
 @endforeach
-<a href="{{route('createteam')}}">Создать команду</a>
 </body>
 </html>

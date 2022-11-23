@@ -57,7 +57,7 @@ class uploadcontroller extends Controller
         $file= $request->file('image');
         $filename= date('YmdHi').$file->hashName();
         $file-> move(public_path('images'), $filename);
-        $data = array('userids'=>$userid,'name' => $name, 'description' => $content,'image' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
+        $data = array('userids'=>$userid,'leaderid'=>$userid,'name' => $name, 'description' => $content,'image' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'));
         DB::table('teams')->insert($data);
         return back();
