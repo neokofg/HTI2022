@@ -16,9 +16,12 @@
         <p>{{$hack->description}}</p>
         <p>{{$hack->date}}</p>
     @endforeach
-    <button>Участвовать</button>
-    <form action="">
+    @if(Auth::check())
+    <form action="{{route('participate')}}" method="POST">
         @csrf
+        <input type="text" name="hackid" value="{{$hack->id}}" style="display:none">
+        <button>Участвовать</button>
     </form>
+    @endif
 </body>
 </html>

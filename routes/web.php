@@ -47,3 +47,4 @@ Route::post('/createTeam', [\App\Http\Controllers\uploadcontroller::class, 'crea
 Route::post('/requestToTeam', [\App\Http\Controllers\uploadcontroller::class, 'requestToTeam'])->name('requestToTeam');
 Route::post('/acceptRequest', [\App\Http\Controllers\uploadcontroller::class, 'acceptRequest'])->name('acceptRequest');
 Route::post('/declineRequest', [\App\Http\Controllers\uploadcontroller::class, 'declineRequest'])->name('declineRequest');
+Route::post('/participate', [\App\Http\Controllers\uploadcontroller::class, 'participate'])->name('participate');

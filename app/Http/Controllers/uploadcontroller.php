@@ -102,4 +102,41 @@ class uploadcontroller extends Controller
         DB::table('requests')->where('id',$requestid)->delete();
         return redirect()->back()->with('success', 'Успешно!');
     }
+    protected function participate(Request $request){
+        $validateFields = $request->validate([
+            'hackid' => 'required|exists:hackathons,id',
+        ]);
+        $hackid = $request->input('hackid');
+        $userid = Auth::user()->id;
+        $useridint = (string)$userid;
+        $teamscolumn = DB::table('teams')->get();
+        foreach ($teamscolumn as $column){
+            $explode_id = array_map('intval', explode(',', $column->userids));
+            foreach ($explode_id as $exploded){
+                if($useridint == $exploded){
+                    $userteam = DB::table('teams')->where('id','=', $column->id)->get();
+                    foreach ($userteam as $user){
+                        if($user->leaderid == $userid){
+                            $hackathon = DB::table('hackathons')->where('id','=',$hackid)->get('teams');
+                                foreach ($hackathon as $hack){
+                                    if($hack->teams != null){
+                                        $hackathon2 = explode(':',$hackathon);
+                                        $hackathon2 = explode('}',$hackathon2[1]);
+                                        $hackathon2 = explode('"',$hackathon2[0]);
+                                        $userids = $hackathon2[1] . ',' . $user->id;
+                                        $data = array('teams' => $userids);
+                                    }else{
+                                        $data = array('teams' => $user->id);
+                                    }
+                                }
+                            DB::table('hackathons')->where('id','=',$hackid)->update($data);
+                            return redirect()->back()->with('success', 'Успешно!');
+                        }else{
+                            return(redirect(route('index')));
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
