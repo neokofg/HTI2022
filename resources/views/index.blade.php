@@ -9,7 +9,7 @@
 </head>
 <body>
     @if(Auth::check())
-        Здравствуйте, {{Auth::user()->name,Auth::user()->surname}}
+        Здравствуйте, {{Auth::user()->name}} {{Auth::user()->surname}}
         <a href="#">Личный кабинет</a>
         @if(Auth::user()->role == 1)
             <a href="{{route('admin')}}">Админ панель</a>
@@ -34,7 +34,7 @@
                 <h3>{{$hack->name}}</h3>
                 <p>{{$hack->prize}} руб.</p>
                 <p>{{$hack->date}}</p>
-            <a href="#"><button>Подробнее</button></a>
+            <a href="{{route('hackathon',['id' => $hack->id])}}"><button>Подробнее</button></a>
             <hr>
         @endforeach
     </div>

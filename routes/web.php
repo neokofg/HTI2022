@@ -17,6 +17,10 @@ Route::name('index')->group(function (){
     Route::view('/', 'index');
     Route::get('/', [\App\Http\Controllers\getdatacontroller::class,'GetAllData']);
 });
+Route::name('hackathon')->group(function (){
+    Route::view('/hackathon', 'hackathon');
+    Route::get('/hackathon', [\App\Http\Controllers\getdatacontroller::class,'GetHackathonData']);
+});
 Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
 Route::view('/admin', 'admin')->name('admin');

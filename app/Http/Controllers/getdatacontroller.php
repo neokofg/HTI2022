@@ -11,4 +11,9 @@ class getdatacontroller extends Controller
         $hackathons = DB::table('hackathons')->orderBy('created_at', 'DESC')->get();
         return view('index', compact(['hackathons']));
     }
+    protected function GetHackathonData(Request $request){
+        $id = $_GET['id'];
+        $hackathon = DB::table('hackathons')->where('id','=',$id)->get();
+        return view('hackathon', compact(['hackathon']));
+    }
 }
