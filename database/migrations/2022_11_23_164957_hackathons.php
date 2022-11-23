@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('hackathons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('surname');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('date');
+            $table->text('teams')->nullable();
+            $table->string('prize');
+            $table->string('sponsors')->nullable();
             $table->string('image')->nullable();
-            $table->integer('acoin');
-            $table->integer('role')->nullable();
-            $table->string('stack');
+            $table->string('experts')->nullable();
+            $table->string('trackers')->nullable();
             $table->text('description');
-            $table->string('contacts');
-            $table->rememberToken();
+            $table->text('tracks');
             $table->timestamps();
         });
     }
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
