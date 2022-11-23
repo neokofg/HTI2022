@@ -20,7 +20,7 @@
             <p>Здравствуйте, {{Auth::user()->name}} {{Auth::user()->surname}}</p>
         @endif
         <br>
-        <a href="#">Личный кабинет</a>
+        <a href="{{route('private')}}">Личный кабинет</a>
         <br>
         @if(Auth::user()->role == 1)
             <a href="{{route('admin')}}">Админ панель</a>

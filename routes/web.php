@@ -37,6 +37,7 @@ Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
 Route::view('/admin', 'admin')->name('admin');
 Route::view('/createteam', 'createteam')->name('createteam');
+Route::view('/private', 'private')->name('private');
 
 Route::post('/registerNewAccount', [\App\Http\Controllers\authcontroller::class, 'registerNewAccount'])->name('registerNewAccount');
 Route::post('/loginInAccount', [\App\Http\Controllers\authcontroller::class, 'loginInAccount'])->name('loginInAccount');
