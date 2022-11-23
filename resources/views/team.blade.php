@@ -16,6 +16,17 @@
     <p>{{$teams->description}}</p>
     @if(Auth::user()->id == $teams->leaderid)
         Заявки:
+        @foreach($userrequests as $request)
+            <p>{{$request->name}} {{$request->surname}}</p>
+            <form action="" method="POST">
+                @csrf
+                <button>Принять</button>
+            </form>
+            <form action="" method="POST">
+                @csrf
+                <button>Отказать</button>
+            </form>
+        @endforeach
     @endif
 @endforeach
 </body>

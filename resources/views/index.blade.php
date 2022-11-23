@@ -9,17 +9,19 @@
 </head>
 <body>
     @if(Auth::check())
-        Здравствуйте, {{Auth::user()->name}} {{Auth::user()->surname}}
-        <br>
         @if($userteam != '[]')
             @foreach($userteam as $team)
-                <p>{{$team->name}}</p>
-            <a href="{{route('team',['id' => $team->id])}}">Команда</a>
+                <p>Здравствуйте, {{$team->name}} {{Auth::user()->name}} {{Auth::user()->surname}}</p>
+                <br>
+                <a href="{{route('team',['id' => $team->id])}}">Команда</a>
             @endforeach
             <br>
+        @else
+            <p>Здравствуйте, {{Auth::user()->name}} {{Auth::user()->surname}}</p>
         @endif
         <br>
         <a href="#">Личный кабинет</a>
+        <br>
         @if(Auth::user()->role == 1)
             <a href="{{route('admin')}}">Админ панель</a>
         @endif

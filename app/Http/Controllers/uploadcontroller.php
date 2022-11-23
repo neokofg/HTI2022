@@ -62,4 +62,15 @@ class uploadcontroller extends Controller
         DB::table('teams')->insert($data);
         return back();
     }
+    protected function requestToTeam(Request $request){
+        $validateFields = $request->validate([
+            'teamid' => 'required|exists:teams,id',
+        ]);
+        $teamid = $request->input('teamid');
+        $userid = Auth::user()->id;
+        $data = array("teamid" => $teamid,'status' => 0, 'userid' => $userid, "created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'));
+        DB::table('requests')->insert($data);
+        return back();
+    }
 }

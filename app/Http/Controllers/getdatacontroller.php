@@ -34,6 +34,10 @@ class getdatacontroller extends Controller
     protected function GetTeamData(Request $request){
         $id = $_GET['id'];
         $team = DB::table('teams')->where('id','=',$id)->get();
-        return view('team', compact(['team']));
+        $requests = DB::table('requests')->where('teamid', '=', $id)->get('userid');
+        $requests = explode(':',$requests);
+        $requests = explode('}',$requests[1]);
+        $userrequests = DB::table('users')->where('id','=', $requests[0])->get();
+        return view('team', compact(['team','userrequests']));
     }
 }

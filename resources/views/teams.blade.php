@@ -15,7 +15,11 @@
     <img src="/images/{{$team->image}}" style="width:100px;height:100px">
     <p>{{$team->name}}</p>
     <p>{{Str::limit($team->description, 50, ' ...')}}</p>
-        <button>Подать заявку</button>
+        <form action="{{route('requestToTeam')}}" method="POST">
+            @csrf
+            <input type="text" value="{{$team->id}}" name="teamid" style="display:none">
+            <button>Подать заявку</button>
+        </form>
     </div>
     <hr>
 @endforeach

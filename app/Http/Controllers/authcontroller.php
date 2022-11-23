@@ -53,6 +53,6 @@ class authcontroller extends Controller
     }
     protected function logout(Request $request){
         Auth::logout();
-        return view('index');
+        return redirect(route('index'));
     }
 }
