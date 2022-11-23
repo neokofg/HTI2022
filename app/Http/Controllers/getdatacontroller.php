@@ -13,10 +13,19 @@ class getdatacontroller extends Controller
         if(Auth::check()){
             $userid = Auth::user()->id;
             $useridint = (string)$userid;
-            $userteam = DB::table('teams')->where('userids','=', $useridint)->get();
-            return view('index', compact(['news','userteam']));
+            $teamscolumn = DB::table('teams')->get();
+            foreach ($teamscolumn as $column){
+                $explode_id = array_map('intval', explode(',', $column->userids));
+                    foreach ($explode_id as $exploded){
+                        if($useridint == $exploded){
+                            $userteam = DB::table('teams')->where('id','=', $column->id)->get();
+                            return view('index', compact(['news','userteam']));
+                        }
+                    }
+            }
         }
-        return view('index', compact(['news']));
+        $userteam = '[]';
+        return view('index', compact(['news','userteam']));
     }
     protected function GetHackathonData(Request $request){
         $id = $_GET['id'];
@@ -35,9 +44,14 @@ class getdatacontroller extends Controller
         $id = $_GET['id'];
         $team = DB::table('teams')->where('id','=',$id)->get();
         $requests = DB::table('requests')->where('teamid', '=', $id)->get('userid');
-        $requests = explode(':',$requests);
-        $requests = explode('}',$requests[1]);
-        $userrequests = DB::table('users')->where('id','=', $requests[0])->get();
-        return view('team', compact(['team','userrequests']));
+        $requestz = DB::table('requests')->where('teamid', '=', $id)->get();
+        if($requestz != '[]'){
+            $requests2 = explode(':',$requests);
+            $requests2 = explode('}',$requests2[1]);
+            $userrequests = DB::table('users')->where('id','=', $requests2[0])->get();
+            return view('team', compact(['team','userrequests','requestz']));
+        }
+        $userrequests = null;
+        return view('team', compact(['team','userrequests','requestz']));
     }
 }

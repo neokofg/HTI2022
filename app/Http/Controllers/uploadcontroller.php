@@ -73,4 +73,25 @@ class uploadcontroller extends Controller
         DB::table('requests')->insert($data);
         return back();
     }
+    protected function acceptRequest(Request $request){
+        $validateFields = $request->validate([
+            'requestid' => 'required|exists:requests,id',
+        ]);
+        $requestid = $request->input('requestid');
+        $requests = DB::table('requests')->where('id', '=', $requestid)->get('userid');
+        $requests2 = explode(':',$requests);
+        $requests2 = explode('}',$requests2[1]);
+        $requestteam = DB::table('requests')->where('id', '=', $requestid)->get('teamid');
+        $requeststeam2 = explode(':',$requestteam);
+        $requeststeam2 = explode('}',$requeststeam2[1]);
+        $teams = DB::table('teams')->where('id','=',$requeststeam2[0])->get('userids');
+        $team2 = explode(':',$teams);
+        $team2 = explode('}',$team2[1]);
+        $team2 = explode('"',$team2[0]);
+        $userids = $team2[1] . ',' . $requests2[0];
+        $data = array('userids' => $userids);
+        DB::table('teams')->where('id','=',$requeststeam2[0])->update($data);
+        DB::table('requests')->where('id',$requestid)->delete();
+        return redirect()->back()->with('success', 'Успешно!');
+    }
 }
