@@ -27,14 +27,14 @@
         <a href="{{route('register')}}">Регистрация</a>
     </div>
     @endif
+    <a href="{{route('hackathons')}}">Хакатоны</a>
     <div>
-        <h1>Хакатон лист:</h1>
-        @foreach($hackathons as $hack)
-            <img src="/images/{{$hack->image}}" style="width:150px;height:150px">
-                <h3>{{$hack->name}}</h3>
-                <p>{{$hack->prize}} руб.</p>
-                <p>{{$hack->date}}</p>
-            <a href="{{route('hackathon',['id' => $hack->id])}}"><button>Подробнее</button></a>
+        <h1>Новости:</h1>
+        @foreach($news as $onenews)
+            <img src="/images/{{$onenews->image}}" style="width:150px;height:150px">
+            <h3>{{$onenews->name}}</h3>
+            <p>{{$onenews->content}}</p>
+            <p>{{$onenews->created_at}}</p>
             <hr>
         @endforeach
     </div>

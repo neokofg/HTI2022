@@ -29,4 +29,20 @@ class uploadcontroller extends Controller
         DB::table('hackathons')->insert($data);
         return back();
     }
+    protected function addNews(Request $request){
+        $validateFields = $request->validate([
+            'name' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'content' => 'required'
+        ]);
+        $name = $request->input('name');
+        $content = $request->input('content');
+        $file= $request->file('image');
+        $filename= date('YmdHi').$file->hashName();
+        $file-> move(public_path('images'), $filename);
+        $data = array('name' => $name, 'content' => $content,'image' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'));
+        DB::table('news')->insert($data);
+        return back();
+    }
 }

@@ -9,6 +9,13 @@
 </head>
 <body>
     <a href="{{route('index')}}">Назад</a>
+    @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    @endif
     <h2>Добавить хакатон:</h2>
     <form action="{{route('addHackathon')}}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -25,12 +32,16 @@
         <p>Выбрать треки:</p>
         <input type="submit">
     </form>
-    @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    @endif
+    <h2>Добавить новость:</h2>
+    <form action="{{route('addNews')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="image">
+        <br>
+        <input type="text" name="name" placeholder="Название">
+        <br>
+        <textarea type="text" name="content" placeholder="Новость"></textarea>
+        <br>
+        <input type="submit">
+    </form>
 </body>
 </html>
