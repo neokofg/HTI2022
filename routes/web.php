@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'index')->name('index');
+Route::name('index')->group(function (){
+    Route::view('/', 'index');
+    Route::get('/', [\App\Http\Controllers\getdatacontroller::class,'GetAllData']);
+});
 Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
+Route::view('/admin', 'admin')->name('admin');
 
 Route::post('/registerNewAccount', [\App\Http\Controllers\authcontroller::class, 'registerNewAccount'])->name('registerNewAccount');
 Route::post('/loginInAccount', [\App\Http\Controllers\authcontroller::class, 'loginInAccount'])->name('loginInAccount');
 Route::post('/logout', [\App\Http\Controllers\authcontroller::class, 'logout'])->name('logout');
+Route::post('/addHackathon', [\App\Http\Controllers\uploadcontroller::class, 'addHackathon'])->name('addHackathon');
 

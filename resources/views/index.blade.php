@@ -11,6 +11,9 @@
     @if(Auth::check())
         Здравствуйте, {{Auth::user()->name,Auth::user()->surname}}
         <a href="#">Личный кабинет</a>
+        @if(Auth::user()->role == 1)
+            <a href="{{route('admin')}}">Админ панель</a>
+        @endif
         <br>
         <form action="{{route('logout')}}" method="POST">
             @csrf
@@ -24,5 +27,16 @@
         <a href="{{route('register')}}">Регистрация</a>
     </div>
     @endif
+    <div>
+        <h1>Хакатон лист:</h1>
+        @foreach($hackathons as $hack)
+            <img src="/images/{{$hack->image}}" style="width:150px;height:150px">
+                <h3>{{$hack->name}}</h3>
+                <p>{{$hack->prize}} руб.</p>
+                <p>{{$hack->date}}</p>
+            <a href="#"><button>Подробнее</button></a>
+            <hr>
+        @endforeach
+    </div>
 </body>
 </html>
