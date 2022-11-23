@@ -19,6 +19,7 @@
         @else
             <p>Здравствуйте, {{Auth::user()->name}} {{Auth::user()->surname}}</p>
         @endif
+        <p>AccelCoins: {{Auth::user()->acoin}} шт.</p>
         <br>
         <a href="{{route('private')}}">Личный кабинет</a>
         <br>
@@ -26,10 +27,6 @@
             <a href="{{route('admin')}}">Админ панель</a>
         @endif
         <br>
-        <form action="{{route('logout')}}" method="POST">
-            @csrf
-            <button>Выйти</button>
-        </form>
     @else
     <div>
         <a href="{{route('login')}}">Войти</a>

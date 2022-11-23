@@ -15,5 +15,9 @@
 <p>Контакты: {{Auth::user()->contacts}}</p>
 <p>О себе: {{Auth::user()->description}}</p>
 <p>Стэк: {{Auth::user()->stack}}</p>
+<form action="{{route('logout')}}" method="POST">
+    @csrf
+    <button>Выйти</button>
+</form>
 </body>
 </html>

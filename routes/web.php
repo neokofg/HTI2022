@@ -35,17 +35,17 @@ Route::name('team')->group(function (){
 });
 Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
-Route::view('/admin', 'admin')->name('admin');
-Route::view('/createteam', 'createteam')->name('createteam');
-Route::view('/private', 'private')->name('private');
+Route::view('/admin', 'admin')->name('admin')->middleware('admin');
+Route::view('/createteam', 'createteam')->name('createteam')->middleware('auth');
+Route::view('/private', 'private')->name('private')->middleware('auth');
 
 Route::post('/registerNewAccount', [\App\Http\Controllers\authcontroller::class, 'registerNewAccount'])->name('registerNewAccount');
 Route::post('/loginInAccount', [\App\Http\Controllers\authcontroller::class, 'loginInAccount'])->name('loginInAccount');
-Route::post('/logout', [\App\Http\Controllers\authcontroller::class, 'logout'])->name('logout');
-Route::post('/addHackathon', [\App\Http\Controllers\uploadcontroller::class, 'addHackathon'])->name('addHackathon');
-Route::post('/addNews', [\App\Http\Controllers\uploadcontroller::class, 'addNews'])->name('addNews');
-Route::post('/createTeam', [\App\Http\Controllers\uploadcontroller::class, 'createTeam'])->name('createTeam');
-Route::post('/requestToTeam', [\App\Http\Controllers\uploadcontroller::class, 'requestToTeam'])->name('requestToTeam');
-Route::post('/acceptRequest', [\App\Http\Controllers\uploadcontroller::class, 'acceptRequest'])->name('acceptRequest');
-Route::post('/declineRequest', [\App\Http\Controllers\uploadcontroller::class, 'declineRequest'])->name('declineRequest');
-Route::post('/participate', [\App\Http\Controllers\uploadcontroller::class, 'participate'])->name('participate');
+Route::post('/logout', [\App\Http\Controllers\authcontroller::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/addHackathon', [\App\Http\Controllers\uploadcontroller::class, 'addHackathon'])->name('addHackathon')->middleware('admin');
+Route::post('/addNews', [\App\Http\Controllers\uploadcontroller::class, 'addNews'])->name('addNews')->middleware('admin');
+Route::post('/createTeam', [\App\Http\Controllers\uploadcontroller::class, 'createTeam'])->name('createTeam')->middleware('auth');
+Route::post('/requestToTeam', [\App\Http\Controllers\uploadcontroller::class, 'requestToTeam'])->name('requestToTeam')->middleware('auth');
+Route::post('/acceptRequest', [\App\Http\Controllers\uploadcontroller::class, 'acceptRequest'])->name('acceptRequest')->middleware('auth');
+Route::post('/declineRequest', [\App\Http\Controllers\uploadcontroller::class, 'declineRequest'])->name('declineRequest')->middleware('auth');
+Route::post('/participate', [\App\Http\Controllers\uploadcontroller::class, 'participate'])->name('participate')->middleware('auth');

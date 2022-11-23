@@ -30,7 +30,11 @@ class getdatacontroller extends Controller
     protected function GetHackathonData(Request $request){
         $id = $_GET['id'];
         $hackathon = DB::table('hackathons')->where('id','=',$id)->get();
-        return view('hackathon', compact(['hackathon']));
+        foreach($hackathon as $teams){
+            $explode_id = array_map('intval', explode(',', $teams->teams));
+            $team = DB::table('teams')->whereIn('id',$explode_id)->get();
+        }
+        return view('hackathon', compact(['hackathon','team']));
     }
     protected function GetHackathonsData(Request $request){
         $hackathons = DB::table('hackathons')->orderBy('created_at', 'DESC')->get();
@@ -45,7 +49,7 @@ class getdatacontroller extends Controller
         $team = DB::table('teams')->where('id','=',$id)->get();
         $requests = DB::table('requests')->where('teamid', '=', $id)->get('userid');
         $requestz = DB::table('requests')->where('teamid', '=', $id)->get();
-        $teamscolumn = DB::table('teams')->get();
+        $teamscolumn = DB::table('teams')->where('id','=',$id)->get();
         foreach ($teamscolumn as $column){
             $explode_id = array_map('intval', explode(',', $column->userids));
             $users = DB::table('users')->whereIn('id',  $explode_id)->get();
