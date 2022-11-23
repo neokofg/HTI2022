@@ -14,8 +14,12 @@
     <img src="/images/{{$teams->image}}" style="width:100px;height:100px">
     <p>{{$teams->name}}</p>
     <p>{{$teams->description}}</p>
+    <h3>Участники</h3>
+    @foreach($users as $user)
+        <p>{{$user->name}} {{$user->surname}}</p>
+    @endforeach
     @if(Auth::user()->id == $teams->leaderid)
-        Заявки:
+        <h3>Заявки:</h3>
         @if($userrequests != null)
         @foreach($userrequests as $requesta)
             <p>{{$requesta->name}} {{$requesta->surname}}</p>

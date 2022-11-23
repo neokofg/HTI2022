@@ -45,13 +45,19 @@ class getdatacontroller extends Controller
         $team = DB::table('teams')->where('id','=',$id)->get();
         $requests = DB::table('requests')->where('teamid', '=', $id)->get('userid');
         $requestz = DB::table('requests')->where('teamid', '=', $id)->get();
+        $teamscolumn = DB::table('teams')->get();
+        foreach ($teamscolumn as $column){
+            $explode_id = array_map('intval', explode(',', $column->userids));
+            $users = DB::table('users')->whereIn('id',  $explode_id)->get();
+        }
         if($requestz != '[]'){
             $requests2 = explode(':',$requests);
             $requests2 = explode('}',$requests2[1]);
             $userrequests = DB::table('users')->where('id','=', $requests2[0])->get();
-            return view('team', compact(['team','userrequests','requestz']));
+            return view('team', compact(['team','userrequests','requestz','users']));
         }
+
         $userrequests = null;
-        return view('team', compact(['team','userrequests','requestz']));
+        return view('team', compact(['team','userrequests','requestz','users']));
     }
 }

@@ -94,4 +94,12 @@ class uploadcontroller extends Controller
         DB::table('requests')->where('id',$requestid)->delete();
         return redirect()->back()->with('success', 'Успешно!');
     }
+    protected function declineRequest(Request $request){
+        $validateFields = $request->validate([
+            'requestid' => 'required|exists:requests,id',
+        ]);
+        $requestid = $request->input('requestid');
+        DB::table('requests')->where('id',$requestid)->delete();
+        return redirect()->back()->with('success', 'Успешно!');
+    }
 }
