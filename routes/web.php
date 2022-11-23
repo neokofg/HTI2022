@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'index')->name('index');
+Route::view('/login', 'login')->name('login');
+Route::view('/register', 'register')->name('register');
+
+Route::post('/registerNewAccount', [\App\Http\Controllers\authcontroller::class, 'registerNewAccount'])->name('registerNewAccount');
+Route::post('/loginInAccount', [\App\Http\Controllers\authcontroller::class, 'loginInAccount'])->name('loginInAccount');
+Route::post('/logout', [\App\Http\Controllers\authcontroller::class, 'logout'])->name('logout');
+
