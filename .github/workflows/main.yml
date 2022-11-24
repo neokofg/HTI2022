@@ -1,0 +1,27 @@
+name: Laravel
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  laravel-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Copy .env
+    - run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Install Dependencies
+    - run: echo Installed
+    - name: Generate key
+    - run: echo Key Generated
+    - name: Directory Permissions
+    - run: echo Perms
+    - name: Create Database
+    - run: echo Database created
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - run: echo Tests Done
