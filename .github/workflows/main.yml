@@ -24,3 +24,4 @@ jobs:
     - name: Create Database
     - run: echo Database created
     - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - run: echo Tests Done
