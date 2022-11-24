@@ -69,4 +69,7 @@ class getdatacontroller extends Controller
         $tracks = DB::table('tracks')->get();
         return view('admin', compact(['tracks']));
     }
+    protected function GetHackathonEditorData(Request $request){
+
+    }
 }

@@ -25,8 +25,9 @@
         <br>
         @if(Auth::user()->role == 1)
             <a href="{{route('admin')}}">Админ панель</a>
+            <a href="{{route('hackathoneditor')}}">Хакатон панель</a>
         @endif
-        @if(Auth::user()->role == 2)    
+        @if(Auth::user()->role == 2)
             <a href="{{route('admin')}}">Эксперт панель</a>
         @endif
         @if(Auth::user()->role == 3)

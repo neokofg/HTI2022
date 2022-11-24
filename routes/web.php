@@ -39,7 +39,7 @@ Route::name('admin')->group(function (){
 })->middleware('admin');
 Route::name('hackathoneditor')->group(function (){
     Route::view('/hackathoneditor', 'hackathoneditor');
-    Route::get('/hackathoneditor', [\App\Http\Controllers\getdatacontroller::class,'GetHackathonEditorData'])->middleware('hackathoneditor');
+    Route::get('/hackathoneditor', [\App\Http\Controllers\getdatacontroller::class,'GetHackathonEditorData'])->middleware('admin');
 })->middleware('admin');
 Route::view('/login', 'login')->name('login');
 Route::view('/register', 'register')->name('register');
