@@ -14,14 +14,14 @@ jobs:
     steps:
 
     - name: Copy .env
-    - run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
-    - run: echo Installed
+      run: echo Installed
     - name: Generate key
-    - run: echo Key Generated
+      run: echo Key Generated
     - name: Directory Permissions
-    - run: echo Perms
+      run: echo Perms
     - name: Create Database
-    - run: echo Database created
+      run: echo Database created
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-    - run: echo Tests Done
+      run: echo Tests Done
