@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('date');
             $table->text('teams')->nullable();
+            $table->text('checkpoints')->nullable();
             $table->string('prize');
             $table->string('sponsors')->nullable();
             $table->string('image')->nullable();

@@ -132,6 +132,11 @@ class uploadcontroller extends Controller
                                     }
                                 }
                             DB::table('hackathons')->where('id','=',$hackid)->update($data);
+                                $myteamid = $column->id;
+                                $hackathonid = $hackid;
+                                $data = array('teamid' => $myteamid,'hackathonid' => $hackathonid,'checkpointnumber' => '0', "created_at" =>  date('Y-m-d H:i:s'),
+                                    "updated_at" => date('Y-m-d H:i:s'));
+                                DB::table('hackathonparticipants')->insert($data);
                             return redirect()->back()->with('success', 'Успешно!');
                         }else{
                             return(redirect(route('index')));

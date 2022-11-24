@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('hackathonparticipants', function (Blueprint $table) {
             $table->id();
-            $table->string('userids');
-            $table->string('leaderid');
-            $table->string('name');
-            $table->text('description');
-            $table->text('image')->nullable();
+            $table->string('teamid');
+            $table->string('hackathonid');
+            $table->string('checkpointnumber');
+            $table->string('closestcheck')->nullable();
+            $table->string('ready')->nullable();
+            $table->string('comment')->nullable();
+            $table->string('balls')->nullable();
             $table->timestamps();
         });
     }
