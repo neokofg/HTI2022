@@ -137,6 +137,18 @@ class uploadcontroller extends Controller
                                 $data = array('teamid' => $myteamid,'hackathonid' => $hackathonid,'checkpointnumber' => '0', "created_at" =>  date('Y-m-d H:i:s'),
                                     "updated_at" => date('Y-m-d H:i:s'));
                                 DB::table('hackathonparticipants')->insert($data);
+                                DB::table('checkpoints')->where('hackid','=',$hackid)->get();
+                                foreach ($checkpoints as $check){
+                                    if($check->teams != null){
+                                        $hackathon2 = explode(':',$check->teams);
+                                        $hackathon2 = explode('}',$hackathon2[1]);
+                                        $hackathon2 = explode('"',$hackathon2[0]);
+                                        $userids = $hackathon2[1] . ',' . $user->id;
+                                        $data = array('teams' => $userids);
+                                    }else{
+                                        $data = array('teams' => $user->id);
+                                    }
+                                }
                             return redirect()->back()->with('success', 'Успешно!');
                         }else{
                             return(redirect(route('index')));
@@ -222,5 +234,22 @@ class uploadcontroller extends Controller
         $data = array('name' => $name, 'surname' => $surname, 'email' => $email,'contacts' => $contacts, 'stack' => $stack, 'description' => $description,"updated_at" => date('Y-m-d H:i:s'));
         DB::table('users')->where('id','=',Auth::user()->id)->update($data);
         return redirect(route('private'))->with('success', 'Успешно!');
+    }
+    protected function createCheckpoint(Request $request){
+        $validateFields = $request->validate([
+            'hackid' => 'required|exists:hackathons,id',
+            'checkpointnumber' => 'required',
+            'time' => 'required',
+        ]);
+        $hackid = $request->input('hackid');
+        $checkpointnumber = $request->input('checkpointnumber');
+        $time = $request->input('time');
+        $hackathons = DB::table('hackathons')->where('id','=',$hackid)->get();
+        foreach ($hackathons as $hackathon){
+            $data = array('hackathonid' => $hackid,'checkpointnumber' => $checkpointnumber,'teams' => $hackathon->teams, 'time' => $time,"created_at" =>  date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'));
+            DB::table('checkpoints')->insert($data);
+            return redirect(route('hackathoneditor'))->with('success', 'Успешно!');
+        }
     }
 }

@@ -70,6 +70,7 @@ class getdatacontroller extends Controller
         return view('admin', compact(['tracks']));
     }
     protected function GetHackathonEditorData(Request $request){
-
+        $hackathons = DB::table('hackathons')->orderBy('created_at', 'DESC')->get();
+        return view('hackathoneditor', compact(['hackathons']));
     }
 }

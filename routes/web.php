@@ -54,6 +54,7 @@ Route::post('/addNews', [\App\Http\Controllers\uploadcontroller::class, 'addNews
 Route::post('/addTrack', [\App\Http\Controllers\uploadcontroller::class, 'addTrack'])->name('addTrack')->middleware('admin');
 Route::post('/editHackathon', [\App\Http\Controllers\uploadcontroller::class, 'editHackathon'])->name('editHackathon')->middleware('admin');
 Route::post('/deleteHackathon', [\App\Http\Controllers\uploadcontroller::class, 'deleteHackathon'])->name('deleteHackathon')->middleware('admin');
+Route::post('/createCheckpoint', [\App\Http\Controllers\uploadcontroller::class, 'createCheckpoint'])->name('createCheckpoint')->middleware('admin');
 Route::post('/createTeam', [\App\Http\Controllers\uploadcontroller::class, 'createTeam'])->name('createTeam')->middleware('auth');
 Route::post('/requestToTeam', [\App\Http\Controllers\uploadcontroller::class, 'requestToTeam'])->name('requestToTeam')->middleware('auth');
 Route::post('/acceptRequest', [\App\Http\Controllers\uploadcontroller::class, 'acceptRequest'])->name('acceptRequest')->middleware('auth');
