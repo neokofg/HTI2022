@@ -13,8 +13,8 @@
 <p id="12">Имя: {{Auth::user()->name}} {{Auth::user()->surname}}</p>
 <p id="22">Email: {{Auth::user()->email}}</p>
 <p id="32">Контакты: {{Auth::user()->contacts}}</p>
-<p id="42">О себе: {{Auth::user()->description}}</p>
 <p id="52">Стэк: {{Auth::user()->stack}}</p>
+<p id="42">О себе: {{Auth::user()->description}}</p>
 <form action="{{route('editUser')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <button type="button" id="editBtn">Редактировать</button>
