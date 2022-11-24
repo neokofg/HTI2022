@@ -195,4 +195,32 @@ class uploadcontroller extends Controller
         DB::table('hackathons')->where('id',$id)->delete();
         return redirect(route('hackathons'))->with('success', 'Успешно!');
     }
+    protected function editUser(Request $request){
+        $validateFields = $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+            'email' => 'required',
+        ]);
+        $name= $request->input('name');
+        $surname = $request->input('surname');
+        $email = $request->input('email');
+        if($request->input('contacts') != null){
+            $contacts = $request->input('contacts');
+        }else{
+            $contacts = null;
+        }
+        if($request->input('stack') != null){
+            $stack = $request->input('stack');
+        }else{
+            $stack = null;
+        }
+        if($request->input('description') != null){
+            $description = $request->input('description');
+        }else{
+            $description = null;
+        }
+        $data = array('name' => $name, 'surname' => $surname, 'email' => $email,'contacts' => $contacts, 'stack' => $stack, 'description' => $description,"updated_at" => date('Y-m-d H:i:s'));
+        DB::table('users')->where('id','=',Auth::user()->id)->update($data);
+        return redirect(route('private'))->with('success', 'Успешно!');
+    }
 }

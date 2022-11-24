@@ -59,3 +59,4 @@ Route::post('/requestToTeam', [\App\Http\Controllers\uploadcontroller::class, 'r
 Route::post('/acceptRequest', [\App\Http\Controllers\uploadcontroller::class, 'acceptRequest'])->name('acceptRequest')->middleware('auth');
 Route::post('/declineRequest', [\App\Http\Controllers\uploadcontroller::class, 'declineRequest'])->name('declineRequest')->middleware('auth');
 Route::post('/participate', [\App\Http\Controllers\uploadcontroller::class, 'participate'])->name('participate')->middleware('auth');
+Route::post('/editUser', [\App\Http\Controllers\uploadcontroller::class, 'editUser'])->name('editUser')->middleware('auth');
