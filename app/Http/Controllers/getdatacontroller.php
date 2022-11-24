@@ -33,8 +33,9 @@ class getdatacontroller extends Controller
         foreach($hackathon as $teams){
             $explode_id = array_map('intval', explode(',', $teams->teams));
             $team = DB::table('teams')->whereIn('id',$explode_id)->get();
+            $tracks = DB::table('tracks')->where('id', '=',$teams->tracks)->get();
         }
-        return view('hackathon', compact(['hackathon','team']));
+        return view('hackathon', compact(['hackathon','team','tracks']));
     }
     protected function GetHackathonsData(Request $request){
         $hackathons = DB::table('hackathons')->orderBy('created_at', 'DESC')->get();
@@ -63,5 +64,9 @@ class getdatacontroller extends Controller
 
         $userrequests = null;
         return view('team', compact(['team','userrequests','requestz','users']));
+    }
+    protected function GetAdminData(Request $request){
+        $tracks = DB::table('tracks')->get();
+        return view('admin', compact(['tracks']));
     }
 }

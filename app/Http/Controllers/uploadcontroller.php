@@ -15,16 +15,18 @@ class uploadcontroller extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'date' => 'required|date',
             'prize' => 'required|integer',
-            'description' => 'required'
+            'description' => 'required',
+            'track' => 'required'
         ]);
         $name = $request->input('name');
         $prize = $request->input('prize');
         $description = $request->input('description');
         $date = $request->input('date');
+        $track = $request->input('track');
         $file= $request->file('image');
         $filename= date('YmdHi').$file->hashName();
         $file-> move(public_path('images'), $filename);
-        $data = array('name' => $name, 'date' =>  $date,'tracks' => '0','prize' => $prize, 'description' => $description,'image' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
+        $data = array('name' => $name, 'date' =>  $date,'tracks' => $track,'prize' => $prize, 'description' => $description,'image' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'));
         DB::table('hackathons')->insert($data);
         return back();
@@ -138,5 +140,54 @@ class uploadcontroller extends Controller
                 }
             }
         }
+    }
+    protected function addTrack(Request $request){
+        $validateFields = $request->validate([
+            'name' => 'required',
+            'file' => 'required|mimes:pdf,xlxs,xlx,docx,doc,csv,txt,png,gif,jpg,jpeg',
+            'description' => 'required'
+        ]);
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $file= $request->file('file');
+        $filename= date('YmdHi').$file->hashName();
+        $file-> move(public_path('images'), $filename);
+        $data = array('name' => $name, 'description' => $description,'pdf' => $filename,"created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'));
+        DB::table('tracks')->insert($data);
+        return back();
+    }
+    protected function editHackathon(Request $request){
+        $validateFields = $request->validate([
+            'name' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'date' => 'required',
+            'description' => 'required',
+            'prize' => 'required',
+            'id'=> 'required',
+            'track' => 'required'
+        ]);
+        $name= $request->input('name');
+        $description= $request->input('description');
+        $date= $request->input('date');
+        $prize= $request->input('prize');
+        $id= $request->input('id');
+        if($pageimage= $request->file('image')){
+            $pageimagename= date('YmdHi').$pageimage->hashName();
+            $pageimage-> move(public_path('images'), $pageimagename);
+        }else{
+            $nameimage = DB::table('hackathons')->where('id','=',$id)->get('image');
+            foreach ($nameimage as $images){
+                $pageimagename = $images->image;
+            }
+        }
+        $data = array('name' => $name, 'description' => $description,'prize'=>$prize,'date' => $date,'image' => $pageimagename,"updated_at" => date('Y-m-d H:i:s'));
+        DB::table('hackathons')->where('id',$id)->update($data);
+        return redirect()->back()->with('success', 'Успешно!');
+    }
+    protected function deleteHackathon(Request $request){
+        $id = $request->input('id');
+        DB::table('hackathons')->where('id',$id)->delete();
+        return redirect(route('hackathons'))->with('success', 'Успешно!');
     }
 }

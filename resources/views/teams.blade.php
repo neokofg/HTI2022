@@ -9,7 +9,7 @@
 </head>
 <body>
 <a href="{{route('index')}}">Назад</a>
-<div>Команды</div>
+<h2>Команды</h2>
 @foreach($teams as $team)
     <div>
     <img src="/images/{{$team->image}}" style="width:100px;height:100px">
