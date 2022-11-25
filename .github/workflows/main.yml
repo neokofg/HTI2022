@@ -1,27 +1,20 @@
-name: Laravel
-
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    branches:
+      - main
+name: Deploy
 jobs:
-  laravel-tests:
-
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-
     steps:
+      - name: Get latest code
+        uses: actions/checkout@v2.3.2
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: 77.222.40.224:21
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: /public-html/
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: echo Installed
-    - name: Generate key
-      run: echo Key Generated
-    - name: Directory Permissions
-      run: echo Perms
-    - name: Create Database
-      run: echo Database created
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: echo Tests Done

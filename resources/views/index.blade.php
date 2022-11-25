@@ -6,12 +6,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     @if(Auth::check())
         @if($userteam != '[]')
             @foreach($userteam as $team)
-                <p>Здравствуйте, {{$team->name}} {{Auth::user()->name}} {{Auth::user()->surname}}</p>
+                <p class="text-lime-800">Здравствуйте, {{$team->name}} {{Auth::user()->name}} {{Auth::user()->surname}}</p>
                 <br>
                 <a href="{{route('team',['id' => $team->id])}}">Команда</a>
             @endforeach
