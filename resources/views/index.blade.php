@@ -12,7 +12,7 @@
     @if(Auth::check())
         @if($userteam != '[]')
             @foreach($userteam as $team)
-                <p class="text-lime-800">Сосать, {{$team->name}} {{Auth::user()->name}} {{Auth::user()->surname}}</p>
+                <p class="text-lime-800">Здравствуйте, {{$team->name}} {{Auth::user()->name}} {{Auth::user()->surname}}</p>
                 <br>
                 <a href="{{route('team',['id' => $team->id])}}">Команда</a>
             @endforeach
