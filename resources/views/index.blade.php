@@ -37,7 +37,7 @@
         <br>
     @else
     <div>
-        <a href="{{route('login')}}">Войти</a>
+        <a href="{{route('login')}}">ОТСОСАТЬ</a>
     </div>
     <div>
         <a href="{{route('register')}}">Регистрация</a>
